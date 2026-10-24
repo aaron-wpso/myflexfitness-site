@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLEX - MY Fitness Platform | Thrive AI &amp; Tech Sdn. Bhd.</title>
+<meta name="description" content="FLEX is an AI-powered fitness and nutrition app owned and operated by Thrive AI & Tech Sdn. Bhd. (202601011434 (1673532-X)), Malaysia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display:wght@400;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<!-- Organization data that crawlers/reviewers can read -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Thrive AI & Tech Sdn. Bhd.",
+  "legalName": "Thrive AI & Tech Sdn. Bhd.",
+  "identifier": "202601011434 (1673532-X)",
+  "url": "https://myflexfitness.com",
+  "email": "admin@myflexfitness.com",
+  "brand": { "@type": "Brand", "name": "FLEX" },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1-2 Jalan Tun Perak 1, Taman Tun Perak",
+    "postalCode": "43200",
+    "addressLocality": "Cheras",
+    "addressRegion": "Selangor",
+    "addressCountry": "MY"
+  }
+}
+</script>
+<style>
+  :root { --bg:#000; --fg:#fff; --muted:#a8a8a8; --line:#444; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font-family:"Source Sans 3",Arial,sans-serif; line-height:1.6; }
+  a { color:var(--fg); }
+  .hero {
+    min-height:70vh; display:flex; flex-direction:column; align-items:center; text-align:center; padding:40px 16px;
+    /* Unsplash photo by Risen Wang: https://unsplash.com/photos/20jX9b35r_M */
+    background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)), url("https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=2000&q=70&auto=format&fit=crop") center/cover, #1b1b1b;
+  }
+  .carousel { position:relative; max-width:1200px; margin:0 auto; padding:56px 16px; }
+  .track { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none; }
+  .track::-webkit-scrollbar { display:none; }
+  /* one poster per slide on phones, two side by side on wider screens; contain = never cropped */
+  .track img { flex:0 0 100%; height:min(60vh,520px); object-fit:contain; scroll-snap-align:start; }
+  @media (min-width:700px) {
+    .track img { flex-basis:50%; padding:0 12px; }
+    /* hug the pair together in the middle instead of leaving a wide gap */
+    .track img:nth-child(odd) { object-position:right; }
+    .track img:nth-child(even) { object-position:left; }
+  }
+  .nav { position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; border:0; background:rgba(255,255,255,.85); color:#000; font-size:22px; cursor:pointer; padding:0; letter-spacing:0; }
+  .nav.prev { left:4px; } .nav.next { right:4px; }
+  .nav { top:calc(50% - 14px); }  /* centre on the posters, not the dots row */
+  .nav:disabled { opacity:.25; cursor:default; }
+  .dots { display:flex; justify-content:center; gap:10px; margin-top:20px; }
+  .dots button { width:10px; height:10px; padding:0; border:0; border-radius:50%; background:rgba(255,255,255,.35); cursor:pointer; letter-spacing:0; }
+  .dots button[aria-current="true"] { background:#fff; }
+  .get-app { padding:0 16px 64px; text-align:center; }
+  .stores { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; }
+  .store { display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .get-app .qr { width:160px; height:160px; background:#fff; padding:8px; border-radius:10px; }
+  .get-app h3 { font-family:"Playfair Display",serif; font-size:28px; margin:0 0 6px; }
+  .get-app p { margin:0 0 16px; color:var(--muted); }
+  /* same height for both badges; faint outline so the black badge shows on navy */
+  .store-btn img { display:block; height:52px; width:auto; border-radius:7px; box-shadow:0 0 0 1px rgba(255,255,255,.35); }
+  .brand { font-family:Montserrat,sans-serif; font-size:clamp(18px,3vw,34px); letter-spacing:.2em; margin:0; }
+  .hero h1 { font-family:"Playfair Display",serif; font-size:clamp(40px,7vw,80px); margin:auto 0; }
+  section { max-width:900px; margin:0 auto; padding:72px 16px; text-align:center; }
+  h2 { font-family:"Playfair Display",serif; font-weight:400; font-size:clamp(34px,5vw,56px); color:#bdbdbd; margin:0; }
+  h2::after { content:""; display:block; width:64px; height:1px; background:var(--line); margin:20px auto 32px; }
+  form { display:grid; gap:28px; text-align:left; }
+  /* full-width band colour behind each centred block, no extra wrapper markup */
+  .carousel, .get-app, #about, #contact { box-shadow:0 0 0 100vmax var(--band); clip-path:inset(0 -100vmax); background:var(--band); }
+  .carousel, .get-app { --band:#0e1a30; }  /* navy, matches the poster backgrounds; QR row shares it */
+  #about    { --band:#1c1030; }  /* deep purple from the logo glow */
+  #contact  { --band:#24130b; }  /* dark ember orange from the logo glow */
+  input,textarea { width:100%; background:transparent; color:var(--fg); border:1px solid #ccc; border-radius:4px; padding:18px 20px; font:inherit; font-size:18px; }
+  textarea { min-height:240px; resize:vertical; }
+  .check { justify-self:center; color:var(--muted); font-size:18px; }
+  button { justify-self:center; background:#fff; color:#000; border:0; border-radius:2px; padding:22px 40px; font-weight:600; letter-spacing:.15em; cursor:pointer; }
+  .company { text-align:left; background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:6px; padding:24px; }
+  .company dl { display:grid; grid-template-columns:max-content 1fr; gap:8px 24px; margin:0; }
+  .company dt { color:var(--muted); }
+  .company dd { margin:0; }
+  footer { border-top:1px solid #222; padding:32px 16px; text-align:center; color:var(--muted); font-size:15px; }
+  @media (max-width:600px) { .company dl { grid-template-columns:1fr; } .company dd { margin-bottom:8px; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="brand">FLEX - MY FITNESS PLATFORM</p>
+  <h1>Flex Your Fitness</h1>
+</header>
+
+<div class="carousel" aria-label="FLEX app highlights">
+  <button class="nav prev" aria-label="Previous">&#8249;</button>
+  <div class="track" id="track">
+    <img src="images/slide-1.jpeg" alt="FLEX app promo 1">
+    <img src="images/slide-2.jpeg" alt="FLEX app promo 2">
+    <img src="images/slide-3.jpeg" alt="FLEX app promo 3">
+    <img src="images/slide-4.jpeg" alt="FLEX app promo 4">
+    <img src="images/slide-5.jpeg" alt="FLEX app promo 5">
+    <img src="images/slide-6.jpeg" alt="FLEX app promo 6">
+  </div>
+  <button class="nav next" aria-label="Next">&#8250;</button>
+  <div class="dots" id="dots"></div>
+</div>
+
+<div class="get-app" id="download">
+    <h3>Get the FLEX app</h3>
+  <p>Scan a QR code with your phone camera, or tap a button.</p>
+  <div class="stores">
+    <div class="store">
+      <a href="https://apps.apple.com/my/app/flex-my-fitness-platform/id6773695840"><img class="qr" src="images/app-store-qr.svg" alt="QR code for FLEX on the App Store"></a>
+      <a class="store-btn" href="https://apps.apple.com/my/app/flex-my-fitness-platform/id6773695840"><img src="images/badge-app-store.png" alt="Download on the App Store"></a>
+    </div>
+    <div class="store">
+      <a href="https://play.google.com/store/apps/details?id=com.thrivefitness.flexfit"><img class="qr" src="images/play-store-qr.svg" alt="QR code for FLEX on Google Play"></a>
+      <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.thrivefitness.flexfit"><img src="images/badge-google-play.png" alt="Get it on Google Play"></a>
+    </div>
+  </div>
+</div>
+<script>
+  const track = document.getElementById("track");
+  const prev = document.querySelector(".prev");
+  const next = document.querySelector(".next");
+  const dots = document.getElementById("dots");
+  const step = () => track.clientWidth;
+  prev.onclick = () => track.scrollBy({ left: -step() });
+  next.onclick = () => track.scrollBy({ left: step() });
+
+  // pages = 3 on wide screens (2 posters each), 6 on phones
+  function update() {
+    const pages = Math.round(track.scrollWidth / step());
+    const current = Math.round(track.scrollLeft / step());
+    if (dots.children.length !== pages) {
+      dots.innerHTML = Array.from({ length: pages }, (_, i) => `<button aria-label="Go to slide ${i + 1}"></button>`).join("");
+      [...dots.children].forEach((d, i) => (d.onclick = () => track.scrollTo({ left: i * step() })));
+    }
+    [...dots.children].forEach((d, i) => d.setAttribute("aria-current", i === current));
+    prev.disabled = track.scrollLeft <= 1;
+    next.disabled = track.scrollLeft + step() >= track.scrollWidth - 1;
+  }
+  track.addEventListener("scroll", update);
+  addEventListener("resize", update);
+  update();
+</script>
+
+<section id="about">
+  <h2>About Us</h2>
+  <p>FLEX is an AI-powered fitness and nutrition app that helps you track meals, workouts and progress with a personal AI coach.
+    FLEX is owned and operated by <strong>Thrive AI &amp; Tech Sdn. Bhd.</strong>, a company incorporated in Malaysia.
+    <a href="https://myflexfitness.com">myflexfitness.com</a> and
+    <a href="https://support.myflexfitness.com">support.myflexfitness.com</a> are the official websites of FLEX.</p>
+
+  <div class="company">
+    <dl>
+      <dt>Company</dt><dd>Thrive AI &amp; Tech Sdn. Bhd.</dd>
+      <dt>Registration No.</dt><dd>202601011434 (1673532-X)</dd>
+      <dt>Business address</dt><dd>1-2 Jalan Tun Perak 1, Taman Tun Perak, 43200 Cheras, Selangor, Malaysia</dd>      <dt>Email</dt><dd><a href="mailto:admin@myflexfitness.com">admin@myflexfitness.com</a></dd>
+    </dl>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p style="font-size:24px;margin-top:0">Drop us a line!</p>
+  <!-- ponytail: mailto opens the visitor's mail app; swap action for a form service if you need server-side capture -->
+  <form action="mailto:admin@myflexfitness.com" method="post" enctype="text/plain">
+    <input name="name" placeholder="Name" aria-label="Name">
+    <input name="email" type="email" placeholder="Email*" aria-label="Email" required>
+    <textarea name="message" placeholder="Message" aria-label="Message"></textarea>
+    <label class="check"><input type="checkbox" name="subscribe" style="width:auto"> Sign up for our email list for updates, promotions, and more.</label>
+    <button type="submit">SEND</button>
+  </form>
+</section>
+
+<footer>
+  Copyright &copy; 2026 FLEX - MY Fitness Platform. All Rights Reserved.<br>
+  FLEX is a product of Thrive AI &amp; Tech Sdn. Bhd. (Registration No. 202601011434 (1673532-X)),
+  1-2 Jalan Tun Perak 1, Taman Tun Perak, 43200 Cheras, Selangor, Malaysia.
+</footer>
+
+</body>
+</html>
